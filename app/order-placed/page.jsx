@@ -5,14 +5,15 @@ import Image from 'next/image'
 import { useEffect } from 'react'
 
 const OrderPlaced = () => {
-
   const { router } = useAppContext()
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       router.push('/my-orders')
     }, 5000)
-  }, [])
+
+    return () => clearTimeout(timer) // cleanup just in case
+  }, [router]) // ✅ include router in deps
 
   return (
     <div className='h-screen flex flex-col justify-center items-center gap-5'>
